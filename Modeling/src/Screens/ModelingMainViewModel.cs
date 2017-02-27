@@ -2,19 +2,36 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Modeling.Annotations;
 using Modeling.Graphics;
 using Modeling.Models.SimpleModel;
+using System.Windows.Input;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Modeling.Screens
 {
     public class ModelingMainViewModel : INotifyPropertyChanged
     {
-        private IScene _scene;
         public int Width => 1280;
         public int Height => 900;
 
+        private Camera _camera;
+        public Camera Camera
+        {
+            get
+            {
+                return _camera;
+            }
+            set
+            {
+                _camera = value;
+                UpdateSceneWithCamera();
+                OnPropertyChanged();
+            }
+        }
+
+        private IScene _scene;
         public IScene Scene
         {
             get
@@ -40,9 +57,15 @@ namespace Modeling.Screens
             Scene.RemoveModel(grid);
         }
 
-        public void MouseMoved(MouseEventArgs e)
+        public void MouseMoved(IInputElement inputElement, MouseEventArgs e)
         {
-            
+            Camera.MouseMoved(inputElement, e);
+            UpdateSceneWithCamera();
+        }
+
+        private void UpdateSceneWithCamera()
+        {
+            _scene.SetupViewMatrix(Camera.EyePosition, Camera.TargetPosition, Camera.Up);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

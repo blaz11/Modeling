@@ -27,7 +27,7 @@
                                   Scene="{Binding Scene}"
                                   Height="768"
                                   Width="1024"
-                                  cal:Message.Attach="[Event MouseMove] = [Action MouseMoved($eventArgs)]"/>
+                                  cal:Message.Attach="[Event MouseMove] = [Action MouseMoved($source, $eventArgs)]"/>
         </Grid>
         <Grid Column="1">
             <Button x:Name="Put"

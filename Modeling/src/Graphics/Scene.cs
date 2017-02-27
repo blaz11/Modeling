@@ -21,6 +21,8 @@ namespace Modeling.Graphics
         private PixelShader _pixelShader;
         private VertexShader _vertexShader;
 
+        private Matrix _viewMatrix;
+        private Matrix _projectionMatrix;
         private Matrix _viewProjection;
         private Matrix _worldViewProjectionMatrix;
 
@@ -31,15 +33,19 @@ namespace Modeling.Graphics
 
         public Scene()
         {
-            SetUpViewProjectionMatrix();
+            _projectionMatrix = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, 4 / 3, 0.1f, 100.0f);
             _modelsOnTheScene = new List<IModel>();
+        }
+
+        public void SetupViewMatrix(Vector3 eye, Vector3 target, Vector3 up)
+        {
+            _viewMatrix = Matrix.LookAtLH(eye, target, up);
+            SetUpViewProjectionMatrix();
         }
 
         private void SetUpViewProjectionMatrix()
         {
-            var viewMatrix = Matrix.LookAtLH(new Vector3(0, 0, -10.0f), new Vector3(0, 1, 0), Vector3.Up);
-            var projectionMatrix = Matrix.PerspectiveFovLH((float)Math.PI / 4.0f, 4 / 3, 0.1f, 100.0f);
-            _viewProjection = Matrix.Multiply(viewMatrix, projectionMatrix);
+            _viewProjection = Matrix.Multiply(_viewMatrix, _projectionMatrix);
         }
 
         public void Attach(ISceneHost host)
@@ -89,9 +95,9 @@ namespace Modeling.Graphics
 
         public void Update(TimeSpan sceneTime)
         {
-            var time = (float)sceneTime.TotalMilliseconds / 1000.0f;
-            _worldViewProjectionMatrix = Matrix.RotationX(time) *
-                                         Matrix.RotationY(time) *
+            //var time = (float)sceneTime.TotalMilliseconds / 1000.0f;
+            _worldViewProjectionMatrix = //Matrix.RotationX(time) *
+                                         //Matrix.RotationY(time) *
                                          //Matrix.RotationZ(time * .7f) *
                                         _viewProjection;
             _worldViewProjectionMatrix.Transpose();

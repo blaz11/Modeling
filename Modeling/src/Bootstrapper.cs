@@ -42,6 +42,10 @@ namespace Modeling
             _container.RegisterInstance(typeof(IWindowManager), string.Empty, new WindowManager());
             _container.RegisterInstance(typeof(IEventAggregator), string.Empty, new EventAggregator());
 
+            var camera = new Camera();
+            BuildUp(camera);
+            _container.RegisterInstance(typeof(Camera), string.Empty, camera);
+
             var scene = new Scene();
             BuildUp(scene);
             _container.RegisterInstance(typeof(IScene), string.Empty, scene);

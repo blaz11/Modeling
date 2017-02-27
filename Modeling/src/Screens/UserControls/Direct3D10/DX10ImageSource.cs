@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Interop;
 using Modeling.Helpers;
 using SharpDX.Direct3D10;
@@ -8,7 +9,7 @@ using SharpDX.Direct3D9;
 
 namespace Modeling.Screens.UserControls.Direct3D10
 {
-    public class DX10ImageSource : D3DImage, IDisposable
+    public class DX10ImageSource : D3DImage, IDisposable, IInputElement
     {
         [DllImport("user32.dll", SetLastError = false)]
         private static extern IntPtr GetDesktopWindow();
@@ -17,10 +18,150 @@ namespace Modeling.Screens.UserControls.Direct3D10
         private static DeviceEx _d3DDevice;
         private Texture _renderTarget;
 
+        public event MouseButtonEventHandler PreviewMouseLeftButtonDown;
+        public event MouseButtonEventHandler MouseLeftButtonDown;
+        public event MouseButtonEventHandler PreviewMouseLeftButtonUp;
+        public event MouseButtonEventHandler MouseLeftButtonUp;
+        public event MouseButtonEventHandler PreviewMouseRightButtonDown;
+        public event MouseButtonEventHandler MouseRightButtonDown;
+        public event MouseButtonEventHandler PreviewMouseRightButtonUp;
+        public event MouseButtonEventHandler MouseRightButtonUp;
+        public event MouseEventHandler PreviewMouseMove;
+        public event MouseEventHandler MouseMove;
+        public event MouseWheelEventHandler PreviewMouseWheel;
+        public event MouseWheelEventHandler MouseWheel;
+        public event MouseEventHandler MouseEnter;
+        public event MouseEventHandler MouseLeave;
+        public event MouseEventHandler GotMouseCapture;
+        public event MouseEventHandler LostMouseCapture;
+        public event StylusDownEventHandler PreviewStylusDown;
+        public event StylusDownEventHandler StylusDown;
+        public event StylusEventHandler PreviewStylusUp;
+        public event StylusEventHandler StylusUp;
+        public event StylusEventHandler PreviewStylusMove;
+        public event StylusEventHandler StylusMove;
+        public event StylusEventHandler PreviewStylusInAirMove;
+        public event StylusEventHandler StylusInAirMove;
+        public event StylusEventHandler StylusEnter;
+        public event StylusEventHandler StylusLeave;
+        public event StylusEventHandler PreviewStylusInRange;
+        public event StylusEventHandler StylusInRange;
+        public event StylusEventHandler PreviewStylusOutOfRange;
+        public event StylusEventHandler StylusOutOfRange;
+        public event StylusSystemGestureEventHandler PreviewStylusSystemGesture;
+        public event StylusSystemGestureEventHandler StylusSystemGesture;
+        public event StylusButtonEventHandler StylusButtonDown;
+        public event StylusButtonEventHandler PreviewStylusButtonDown;
+        public event StylusButtonEventHandler PreviewStylusButtonUp;
+        public event StylusButtonEventHandler StylusButtonUp;
+        public event StylusEventHandler GotStylusCapture;
+        public event StylusEventHandler LostStylusCapture;
+        public event KeyEventHandler PreviewKeyDown;
+        public event KeyEventHandler KeyDown;
+        public event KeyEventHandler PreviewKeyUp;
+        public event KeyEventHandler KeyUp;
+        public event KeyboardFocusChangedEventHandler PreviewGotKeyboardFocus;
+        public event KeyboardFocusChangedEventHandler GotKeyboardFocus;
+        public event KeyboardFocusChangedEventHandler PreviewLostKeyboardFocus;
+        public event KeyboardFocusChangedEventHandler LostKeyboardFocus;
+        public event TextCompositionEventHandler PreviewTextInput;
+        public event TextCompositionEventHandler TextInput;
+
+        public bool IsMouseOver
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsMouseDirectlyOver
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsMouseCaptured
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsStylusOver
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsStylusDirectlyOver
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsStylusCaptured
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsKeyboardFocusWithin
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsKeyboardFocused
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool Focusable
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public DX10ImageSource()
         {
             StartD3D();
             _activeClients++;
+            MouseMove += DX10ImageSource_MouseMove;
+        }
+
+        private void DX10ImageSource_MouseMove(object sender, MouseEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()
@@ -145,6 +286,46 @@ namespace Modeling.Screens.UserControls.Direct3D10
         private static bool IsShareable(SharpDX.Direct3D10.Texture2D texture)
         {
             return (texture.Description.OptionFlags & SharpDX.Direct3D10.ResourceOptionFlags.Shared) != 0;
+        }
+
+        public void RaiseEvent(RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddHandler(RoutedEvent routedEvent, Delegate handler)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveHandler(RoutedEvent routedEvent, Delegate handler)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CaptureMouse()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReleaseMouseCapture()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CaptureStylus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReleaseStylusCapture()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Focus()
+        {
+            throw new NotImplementedException();
         }
     }
 }
