@@ -34,7 +34,23 @@ namespace Modeling
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            DisplayRootViewFor<ModelingMainViewModel>();
+           var settings = new Dictionary<string, object>
+           {
+               //{ "SizeToContent", SizeToContent.WidthAndHeight },
+               //{ "Height" , 732 },
+               //{ "Width"  , 1056 },
+               //{ "SizeChanged", () => a }
+           };
+            //DisplayRootViewFor<ModelingMainViewModel>(settings);
+
+            var context = _container.GetInstance(typeof(ModelingMainViewModel), string.Empty);
+            var view = new ModelingMainView {DataContext = context };
+            view.Show();
+        }
+
+        private void a(object a, object b)
+        {
+            
         }
 
         private void RegisterComponents()
@@ -53,7 +69,7 @@ namespace Modeling
             var modelingMainViewModel = new ModelingMainViewModel();
             BuildUp(modelingMainViewModel);
             modelingMainViewModel.Camera = camera;
-            _container.RegisterInstance(typeof(ModelingMainViewModel), string.Empty, modelingMainViewModel);   
+            _container.RegisterInstance(typeof(ModelingMainViewModel), string.Empty, modelingMainViewModel);
         }
     }
 }

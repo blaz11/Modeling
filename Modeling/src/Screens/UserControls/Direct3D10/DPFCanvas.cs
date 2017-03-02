@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Modeling.Graphics;
+using Modeling.Helpers;
+using SharpDX;
+using SharpDX.Direct3D10;
+using SharpDX.DXGI;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Modeling.Graphics;
-using Modeling.Helpers;
-using SharpDX;
-using SharpDX.Direct3D10;
-using SharpDX.DXGI;
 using Device = SharpDX.Direct3D10.Device1;
 
 namespace Modeling.Screens.UserControls.Direct3D10
@@ -27,7 +27,7 @@ namespace Modeling.Screens.UserControls.Direct3D10
 
         public Color4 ClearColor = SharpDX.Color.Black;
 
-        public static readonly DependencyProperty SceneProperty = 
+        public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register(nameof(Scene), typeof(IScene), typeof(DPFCanvas));
 
         public IScene Scene
@@ -133,8 +133,8 @@ namespace Modeling.Screens.UserControls.Direct3D10
             Disposer.RemoveAndDispose(ref _renderTarget);
             Disposer.RemoveAndDispose(ref _depthStencil);
 
-            var width = Math.Max((int)ActualWidth, 100);
-            var height = Math.Max((int)ActualHeight, 100);
+            var width = Math.Max((int)ActualWidth, 1024);
+            var height = Math.Max((int)ActualHeight, 768);
 
             var colorDescription = new Texture2DDescription
             {

@@ -1,35 +1,50 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using Caliburn.Micro;
 using Modeling.Annotations;
 using Modeling.Graphics;
-using Modeling.Models.SimpleModel;
-using System.Windows.Input;
+using Modeling.Models;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using Modeling.Models.Torus;
+using System.Windows.Input;
 
 namespace Modeling.Screens
 {
     public class ModelingMainViewModel : INotifyPropertyChanged
     {
-        public int Width => 1280;
-        public int Height => 900;
+        public int Width { get; set; } = 1280;
+        public int Height { get; set; } = 800;
 
-        private Camera _camera;
-        public Camera Camera
+        private IObservableCollection<ModelBase> _models;
+        public IObservableCollection<ModelBase> Models
         {
             get
             {
-                return _camera;
+                return _models;
             }
             set
             {
-                _camera = value;
+                _models = value;
                 OnPropertyChanged();
             }
         }
+
+        private ModelBase _selectedModel;
+        public ModelBase SelectedModel
+        {
+            get
+            {
+                return _selectedModel;
+            }
+            set
+            {
+                _selectedModel = value;
+                Camera.TargetPosition = SelectedModel.ModelPosition;
+                UpdateSceneWithCamera();
+                OnPropertyChanged();
+            }
+        }
+
+        public Camera Camera { get; set; }
 
         private IScene _scene;
         public IScene Scene
@@ -49,14 +64,20 @@ namespace Modeling.Screens
             }
         }
 
-        public async void PutItem()
+        public ModelingMainViewModel()
+        {
+                Models = new BindableCollection<ModelBase>();
+        }
+
+        public void PutItem()
         {
             UpdateSceneWithCamera();
-            var torus = new Torus();
-            var grid = new SimpleGrid();
+            var torus = new Torus("test torus");
             Scene.AddModel(torus);
-            await Task.Delay(TimeSpan.FromSeconds(5));
-           // Scene.RemoveModel(grid);
+            Models.Add(torus);
+            var grid = new SimpleGrid("test grid");
+            Scene.AddModel(grid);
+            Models.Add(grid);
         }
 
         public void MouseMoved(IInputElement inputElement, MouseEventArgs e)
@@ -68,6 +89,17 @@ namespace Modeling.Screens
         public void OnMouseWheel(IInputElement inputElement, MouseWheelEventArgs e)
         {
             Camera.OnMouseWheel(inputElement, e);
+            UpdateSceneWithCamera();
+        }
+
+        public void OnKeyDown(KeyEventArgs e)
+        {
+            if (SelectedModel == null)
+            {
+                return;
+            }
+            SelectedModel.OnKeyDown(e);
+            Camera.TargetPosition = SelectedModel.ModelPosition;
             UpdateSceneWithCamera();
         }
 

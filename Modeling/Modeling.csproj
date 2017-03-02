@@ -124,14 +124,20 @@
     <Compile Include="src\Graphics\Scene.cs" />
     <Compile Include="src\Helpers\Disposer.cs" />
     <Compile Include="src\Models\ModelBase.cs" />
-    <Compile Include="src\Models\SimpleModel\SimpleGrid.cs" />
-    <Compile Include="src\Models\Torus\Torus.cs" />
+    <Compile Include="src\Models\SimpleGrid.cs" />
+    <Compile Include="src\Models\Torus.cs" />
     <Compile Include="src\Screens\ModelingMainView.xaml.cs">
       <DependentUpon>ModelingMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Screens\ModelingMainViewModel.cs" />
     <Compile Include="src\Screens\UserControls\Direct3D10\DPFCanvas.cs" />
     <Compile Include="src\Screens\UserControls\Direct3D10\DX10ImageSource.cs" />
+    <Compile Include="src\Screens\UserControls\Models\SimpleGridView.xaml.cs">
+      <DependentUpon>SimpleGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="src\Screens\UserControls\Models\TorusView.xaml.cs">
+      <DependentUpon>TorusView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -179,6 +185,14 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="src\Screens\ModelingMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\Screens\UserControls\Models\SimpleGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\Screens\UserControls\Models\TorusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

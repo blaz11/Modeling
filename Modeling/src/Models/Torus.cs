@@ -1,26 +1,65 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SharpDX;
 
-namespace Modeling.Models.Torus
+namespace Modeling.Models
 {
     public class Torus : ModelBase
     {
-        public float BigR { get; set; }
-        public float SmallR { get; set; }
-        public uint T { get; set; }
+        private float _bigR;
+        private float _smallR;
+        private uint _t;
 
-        public Torus()
+        public float BigR
         {
-            ModelColor = new Color4(128.0f, 0.0f, 0.0f, 1.0f);
-            BigR = 4;
-            SmallR = 2;
-            T = 500;
-            Vertices = new List<Vector4>();
-            Indices = new List<uint>();
+            get
+            {
+                return _bigR;
+            }
+            set
+            {
+                _bigR = value;
+                OnPropertyChanged();
+                GenerateTorus();
+            }
+        }
+
+        public float SmallR
+        {
+            get
+            {
+                return _smallR;
+            }
+            set
+            {
+                _smallR = value;
+                OnPropertyChanged();
+                GenerateTorus();
+            }
+        }
+
+        public uint T
+        {
+            get
+            {
+                return _t;
+            }
+            set
+            {
+                _t = value;
+                OnPropertyChanged();
+                GenerateTorus();
+            }
+        }
+
+        public Torus(string name) : base(name)
+        {
+            Shape = "Torus";
+            _bigR = 4;
+            _smallR = 2;
+            _t = 50;
+            ModelColor = new Color4(128.0f, 128.0f, 0.0f, 1.0f);
+            ModelPosition = new Vector3(0.0f, 0.0f, 0.0f);
             GenerateTorus();
         }
 
@@ -33,7 +72,7 @@ namespace Modeling.Models.Torus
 
         private void GenerateTorusVertices()
         {
-            Vertices.Clear();
+            Vertices = new List<Vector4>();
             var step = MathUtil.TwoPi / T;
             for (float alfa = 0; alfa <= MathUtil.TwoPi; alfa += step)
             {
@@ -50,13 +89,22 @@ namespace Modeling.Models.Torus
 
         private void GenerateTorusIndices()
         {
-            Indices.Clear();
+            Indices = new List<uint>();
             for (uint i = 0; i < T; i++)
             {
-                for (uint j = 0; j < T; j++)
+                // j = 0
+                Indices.Add(i);
+                for (uint j = 1; j < T - 1; j++)
                 {
                     Indices.Add(i + j * T);
+                    Indices.Add(i + j * T);
                 }
+                // j = T - 1
+                Indices.Add(i + (T - 1) * T);
+                // First to last
+                Indices.Add(i);
+                Indices.Add(i + (T - 1) * T);
+
                 uint i1;
                 if (i + 1 < T)
                 {

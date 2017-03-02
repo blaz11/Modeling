@@ -89,12 +89,12 @@ namespace Modeling.Graphics
 
         public void Update(TimeSpan sceneTime)
         {
-            var time = (float)sceneTime.TotalMilliseconds / 1000.0f;
-            _worldViewProjectionMatrix = //Matrix.RotationX(time) *
-                                         //Matrix.RotationY(time) *
-                                         //Matrix.RotationZ(time * .7f) *
-                                        _viewProjection;
-            _worldViewProjectionMatrix.Transpose();
+            //var time = (float)sceneTime.TotalMilliseconds / 1000.0f;
+            //_worldViewProjectionMatrix = //Matrix.RotationX(time) *
+            //                             //Matrix.RotationY(time) *
+            //                             //Matrix.RotationZ(time * .7f) *
+            //                            _viewProjection;
+            //_worldViewProjectionMatrix.Transpose();
         }
 
         public void Render()
@@ -104,11 +104,14 @@ namespace Modeling.Graphics
             {
                 return;
             }
-            device.UpdateSubresource(ref _worldViewProjectionMatrix, _matrixBuffer);
             for (var i = 0; i < _modelsOnTheScene.Count; i++)
             {
-                var color = _modelsOnTheScene[i].ModelColor;
-                device.UpdateSubresource(ref color, _colorBuffer);
+                var modelColor = _modelsOnTheScene[i].ModelColor;
+                var worldViewProjectionMatrixForModel = 
+                    Matrix.Translation(_modelsOnTheScene[i].ModelPosition) * _viewProjection;
+                worldViewProjectionMatrixForModel.Transpose();
+                device.UpdateSubresource(ref modelColor, _colorBuffer);
+                device.UpdateSubresource(ref worldViewProjectionMatrixForModel, _matrixBuffer);
                 _modelsOnTheScene[i].Render();
             }
         }

@@ -9,7 +9,7 @@ namespace Modeling.Graphics
     public class Camera
     {
         public Vector3 EyePosition { get; private set; }
-        public Vector3 TargetPosition { get; private set; }
+        public Vector3 TargetPosition { get; set; }
         public Vector3 Up { get; private set; }
 
         private Point _oldMousePosition;

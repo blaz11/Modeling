@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using SharpDX;
 
-namespace Modeling.Models.SimpleModel
+namespace Modeling.Models
 {
     public class SimpleGrid : ModelBase
     {
-        public SimpleGrid()
+        public SimpleGrid(string name) : base(name)
         {
+            Shape = "SimpleGrid";
             const float size = 0.5f;
             Vertices = new List<Vector4>()
             {
