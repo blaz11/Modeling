@@ -17,12 +17,12 @@ namespace Modeling.Graphics
         private double _theta;
         private int _angleSign = 1;
         private double _radius;
-        private double distance;
 
-        private const double ROTATION_MULTIPLIER = 0.005f;
+        private const double ROTATION_MULTIPLIER = 0.01f;
         private const double ANGLE_EPSILON = 1e-4f;
-        private const double ZOOM_SPEED = 0.003f;
-        private const int CAMERA_RADIUS = 8;
+        private const double ZOOM_SPEED = 0.002f;
+        private const int DEFAULT_CAMERA_RADIUS = 23;
+        private const double MINIMUM_DISTANCE = 2.0f;
 
         public Camera()
         {
@@ -32,8 +32,7 @@ namespace Modeling.Graphics
 
             _phi = MathUtil.Pi;
             _theta = MathUtil.PiOverTwo;
-            _radius = CAMERA_RADIUS * 3;
-            distance = CAMERA_RADIUS;
+            _radius = DEFAULT_CAMERA_RADIUS;
         }
 
         public void MouseMoved(IInputElement element, MouseEventArgs e)
@@ -49,8 +48,12 @@ namespace Modeling.Graphics
 
         public void OnMouseWheel(IInputElement inputElement, MouseWheelEventArgs e)
         {
-            var zoomChange = distance * e.Delta * ZOOM_SPEED;
+            var zoomChange = MINIMUM_DISTANCE * e.Delta * ZOOM_SPEED;
             _radius -= zoomChange;
+            if (_radius < MINIMUM_DISTANCE)
+            {
+                _radius = MINIMUM_DISTANCE;
+            }
             EyePosition = GenerateEyeVector();
         }
 

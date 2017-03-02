@@ -75,9 +75,9 @@ namespace Modeling.Screens
             var torus = new Torus("test torus");
             Scene.AddModel(torus);
             Models.Add(torus);
-            var grid = new SimpleGrid("test grid");
-            Scene.AddModel(grid);
-            Models.Add(grid);
+            //var grid = new SimpleGrid("test grid");
+            //Scene.AddModel(grid);
+            //Models.Add(grid);
         }
 
         public void MouseMoved(IInputElement inputElement, MouseEventArgs e)

@@ -29,6 +29,8 @@ namespace Modeling.Models
 
         public Vector3 ModelPosition { get; set; }
 
+        public float Scale { get; set; } = 1.0f;
+
         public IList<Vector4> Vertices { get; set; }
 
         public IList<uint> Indices { get; set; }
@@ -135,6 +137,18 @@ namespace Modeling.Models
             }
 
             ModelPosition = ModelPosition + new Vector3(dx, dy, dz);
+            if (e.KeyboardDevice.IsKeyDown(Key.OemPlus))
+            {
+                Scale += MOVE_CONSTANT;
+            }
+            if (e.KeyboardDevice.IsKeyDown(Key.OemMinus))
+            {
+                Scale -= MOVE_CONSTANT;
+            }
+            if (Scale < 0)
+            {
+                Scale = 0;
+            }
         }
 
         private void Dispose()

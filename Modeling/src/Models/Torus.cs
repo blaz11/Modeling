@@ -58,7 +58,7 @@ namespace Modeling.Models
             _bigR = 4;
             _smallR = 2;
             _t = 50;
-            ModelColor = new Color4(128.0f, 128.0f, 0.0f, 1.0f);
+            ModelColor = new Color4(0, 0, 0, 1.0f);
             ModelPosition = new Vector3(0.0f, 0.0f, 0.0f);
             GenerateTorus();
         }

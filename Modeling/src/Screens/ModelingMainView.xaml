@@ -35,45 +35,47 @@
         </StackPanel>
         <Grid Grid.Column="1"
               Grid.Row="0"
-              Grid.RowSpan="2"
-              Background="Green">
+              Grid.RowSpan="2">
             <StackPanel>
-                <ListView ItemsSource="{Binding Models}"
-                          x:Name="ModelsListView"
-                          SelectedItem="{Binding SelectedModel}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Shape}"/>
-                                <TextBlock Text=": "/>
-                                <TextBlock Text="{Binding Name}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <ContentControl Content="{Binding SelectedItem, ElementName=ModelsListView}">
-                    <ContentControl.Resources>
-                        <DataTemplate DataType="{x:Type models:Torus}">
-                            <modelsViews:TorusView DataContext="{Binding}"/>
-                        </DataTemplate>
-                        <DataTemplate DataType="{x:Type models:SimpleGrid}">
-                            <modelsViews:SimpleGridView DataContext="{Binding}"/>
-                        </DataTemplate>
-                    </ContentControl.Resources>
-                </ContentControl>
+                <GroupBox Header="Models list">
+                    <ListView ItemsSource="{Binding Models}"
+                              x:Name="ModelsListView"
+                              SelectedItem="{Binding SelectedModel}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Shape}"/>
+                                    <TextBlock Text=": "/>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </GroupBox>
+                <GroupBox Header="Selected model">
+                    <ContentControl Content="{Binding SelectedItem, ElementName=ModelsListView}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type models:Torus}">
+                                <modelsViews:TorusView DataContext="{Binding}"/>
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type models:SimpleGrid}">
+                                <modelsViews:SimpleGridView DataContext="{Binding}"/>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </GroupBox>
                 <Button x:Name="Put"
-                    cal:Message.Attach="PutItem" 
-                    Content="Put item"/>
+                        cal:Message.Attach="PutItem" 
+                        Content="Put torus"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="0"
-              Grid.Row="1"
-              Background="Blue">
+              Grid.Row="1">
         </Grid>
     </Grid>
 </Window>

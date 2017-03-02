@@ -25,7 +25,7 @@ namespace Modeling.Screens.UserControls.Direct3D10
         private IScene _renderScene;
         private bool _sceneAttached;
 
-        public Color4 ClearColor = SharpDX.Color.Black;
+        public Color4 ClearColor = SharpDX.Color.WhiteSmoke;
 
         public static readonly DependencyProperty SceneProperty =
             DependencyProperty.Register(nameof(Scene), typeof(IScene), typeof(DPFCanvas));

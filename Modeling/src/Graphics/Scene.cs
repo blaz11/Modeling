@@ -108,7 +108,8 @@ namespace Modeling.Graphics
             {
                 var modelColor = _modelsOnTheScene[i].ModelColor;
                 var worldViewProjectionMatrixForModel = 
-                    Matrix.Translation(_modelsOnTheScene[i].ModelPosition) * _viewProjection;
+                    Matrix.Translation(_modelsOnTheScene[i].ModelPosition) * 
+                    Matrix.Scaling(_modelsOnTheScene[i].Scale) * _viewProjection;
                 worldViewProjectionMatrixForModel.Transpose();
                 device.UpdateSubresource(ref modelColor, _colorBuffer);
                 device.UpdateSubresource(ref worldViewProjectionMatrixForModel, _matrixBuffer);
