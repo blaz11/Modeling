@@ -123,8 +123,9 @@
     <Compile Include="src\Graphics\ISceneHost.cs" />
     <Compile Include="src\Graphics\Scene.cs" />
     <Compile Include="src\Helpers\Disposer.cs" />
-    <Compile Include="src\Models\IModel.cs" />
+    <Compile Include="src\Models\ModelBase.cs" />
     <Compile Include="src\Models\SimpleModel\SimpleGrid.cs" />
+    <Compile Include="src\Models\Torus\Torus.cs" />
     <Compile Include="src\Screens\ModelingMainView.xaml.cs">
       <DependentUpon>ModelingMainView.xaml</DependentUpon>
     </Compile>

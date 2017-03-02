@@ -6,10 +6,9 @@ namespace Modeling.Graphics
 {
     public interface IScene
     {
-        void AddModel(IModel model);
-        void RemoveModel(IModel model);
+        void AddModel(ModelBase model);
+        void RemoveModel(ModelBase model);
         void SetupViewMatrix(Vector3 eye, Vector3 target, Vector3 up);
-
 
         void Attach(ISceneHost host);
         void Detach();

@@ -1,7 +1,6 @@
 ﻿struct VS_IN
 {
 	float4 pos : POSITION;
-	float4 col : COLOR;
 };
 
 struct PS_IN
@@ -10,15 +9,24 @@ struct PS_IN
 	float4 col : COLOR;
 };
 
-float4x4 worldViewProj;
+cbuffer cbWorld : register(b0)
+{
+	float4x4 worldViewProj;
+};
+
+cbuffer cColor : register(b1)
+{
+	float4 color;
+};
+
 
 PS_IN VS(VS_IN input)
 {
 	PS_IN output = (PS_IN)0;
 
 	output.pos = mul(input.pos, worldViewProj);
-	output.col = input.col;
-
+	output.col = color;
+	
 	return output;
 }
 

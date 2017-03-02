@@ -8,6 +8,7 @@ using Modeling.Models.SimpleModel;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using Modeling.Models.Torus;
 
 namespace Modeling.Screens
 {
@@ -26,7 +27,6 @@ namespace Modeling.Screens
             set
             {
                 _camera = value;
-                UpdateSceneWithCamera();
                 OnPropertyChanged();
             }
         }
@@ -51,15 +51,23 @@ namespace Modeling.Screens
 
         public async void PutItem()
         {
+            UpdateSceneWithCamera();
+            var torus = new Torus();
             var grid = new SimpleGrid();
-            Scene.AddModel(grid);
+            Scene.AddModel(torus);
             await Task.Delay(TimeSpan.FromSeconds(5));
-            Scene.RemoveModel(grid);
+           // Scene.RemoveModel(grid);
         }
 
         public void MouseMoved(IInputElement inputElement, MouseEventArgs e)
         {
             Camera.MouseMoved(inputElement, e);
+            UpdateSceneWithCamera();
+        }
+
+        public void OnMouseWheel(IInputElement inputElement, MouseWheelEventArgs e)
+        {
+            Camera.OnMouseWheel(inputElement, e);
             UpdateSceneWithCamera();
         }
 

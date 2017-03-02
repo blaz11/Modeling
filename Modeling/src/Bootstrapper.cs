@@ -52,6 +52,7 @@ namespace Modeling
 
             var modelingMainViewModel = new ModelingMainViewModel();
             BuildUp(modelingMainViewModel);
+            modelingMainViewModel.Camera = camera;
             _container.RegisterInstance(typeof(ModelingMainViewModel), string.Empty, modelingMainViewModel);   
         }
     }
