@@ -43,9 +43,12 @@ namespace Modeling
            };
             //DisplayRootViewFor<ModelingMainViewModel>(settings);
 
-            var context = _container.GetInstance(typeof(ModelingMainViewModel), string.Empty);
-            var view = new ModelingMainView {DataContext = context };
-            view.Show();
+            //var context = _container.GetInstance(typeof(ModelingMainViewModel), string.Empty);
+            //var view = new ModelingMainView {DataContext = context };
+            //view.Show();
+
+            var bitmapMainView = new BitmapMainView();
+            bitmapMainView.Show();
         }
 
         private void a(object a, object b)
@@ -62,9 +65,9 @@ namespace Modeling
             BuildUp(camera);
             _container.RegisterInstance(typeof(Camera), string.Empty, camera);
 
-            var scene = new Scene();
-            BuildUp(scene);
-            _container.RegisterInstance(typeof(IScene), string.Empty, scene);
+            //var scene = new Scene();
+            //BuildUp(scene);
+            //_container.RegisterInstance(typeof(IScene), string.Empty, scene);
 
             var modelingMainViewModel = new ModelingMainViewModel();
             BuildUp(modelingMainViewModel);

@@ -7,6 +7,7 @@ using SharpDX.D3DCompiler;
 using SharpDX.Direct3D10;
 using SharpDX.DXGI;
 using Buffer = SharpDX.Direct3D10.Buffer;
+using System.IO;
 
 namespace Modeling.Graphics
 {
@@ -53,14 +54,15 @@ namespace Modeling.Graphics
                 throw new Exception("Scene host device is null");
             }
 
-            var vertexShaderByteCode = ShaderBytecode.CompileFromFile("Shaders.fx", "VS", "vs_4_0");
+            var vertexShaderByteCode = ShaderBytecode.FromFile(@"shadervs.cso");
             _vertexShader = new VertexShader(device, vertexShaderByteCode);
-
-            var pixelShaderByteCode = ShaderBytecode.CompileFromFile("Shaders.fx", "PS", "ps_4_0");
+            
+            var pixelShaderByteCode = ShaderBytecode.FromFile(@"shaderps.cso");
             _pixelShader = new PixelShader(device, pixelShaderByteCode);
 
+            var vertexShaderSignature = new ShaderSignature(vertexShaderByteCode);
             _vertexLayout = new InputLayout(device,
-                ShaderSignature.GetInputSignature(vertexShaderByteCode),
+                vertexShaderSignature,
                 new[]
                 {
                     new InputElement("POSITION", 0, Format.R32G32B32A32_Float, 0, 0)
@@ -107,9 +109,10 @@ namespace Modeling.Graphics
             for (var i = 0; i < _modelsOnTheScene.Count; i++)
             {
                 var modelColor = _modelsOnTheScene[i].ModelColor;
-                var worldViewProjectionMatrixForModel = 
+                var worldViewProjectionMatrixForModel =
+                    Matrix.Scaling(_modelsOnTheScene[i].Scale) *
                     Matrix.Translation(_modelsOnTheScene[i].ModelPosition) * 
-                    Matrix.Scaling(_modelsOnTheScene[i].Scale) * _viewProjection;
+                     _viewProjection;
                 worldViewProjectionMatrixForModel.Transpose();
                 device.UpdateSubresource(ref modelColor, _colorBuffer);
                 device.UpdateSubresource(ref worldViewProjectionMatrixForModel, _matrixBuffer);

@@ -1,4 +1,4 @@
-﻿struct VS_IN
+﻿truct VS_IN
 {
 	float4 pos : POSITION;
 };

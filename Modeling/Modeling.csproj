@@ -39,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -111,6 +112,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.5.0.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.5.0.0\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -118,20 +123,28 @@
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="src\Bootstrapper.cs" />
+    <Compile Include="src\Graphics\BitmapScene.cs" />
     <Compile Include="src\Graphics\Camera.cs" />
     <Compile Include="src\Graphics\IScene.cs" />
     <Compile Include="src\Graphics\ISceneHost.cs" />
     <Compile Include="src\Graphics\Scene.cs" />
+    <Compile Include="src\Graphics\ZProvider.cs" />
     <Compile Include="src\Helpers\Disposer.cs" />
     <Compile Include="src\Models\ModelBase.cs" />
     <Compile Include="src\Models\SimpleGrid.cs" />
     <Compile Include="src\Models\Torus.cs" />
+    <Compile Include="src\Screens\BitmapMainView.xaml.cs">
+      <DependentUpon>BitmapMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Screens\ModelingMainView.xaml.cs">
       <DependentUpon>ModelingMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\Screens\ModelingMainViewModel.cs" />
     <Compile Include="src\Screens\UserControls\Direct3D10\DPFCanvas.cs" />
     <Compile Include="src\Screens\UserControls\Direct3D10\DX10ImageSource.cs" />
+    <Compile Include="src\Screens\UserControls\Models\ModelBaseView.xaml.cs">
+      <DependentUpon>ModelBaseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Screens\UserControls\Models\SimpleGridView.xaml.cs">
       <DependentUpon>SimpleGridView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +176,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="shaderps.cso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="shadervs.cso">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -184,7 +203,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="src\Screens\BitmapMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\Screens\ModelingMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="src\Screens\UserControls\Models\ModelBaseView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

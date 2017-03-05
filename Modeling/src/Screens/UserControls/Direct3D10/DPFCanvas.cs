@@ -67,7 +67,7 @@ namespace Modeling.Screens.UserControls.Direct3D10
             DataContextChanged += (sender, args) =>
             {
                 var modelingMainView = DataContext as ModelingMainViewModel;
-                Scene = modelingMainView.Scene;
+                //Scene = modelingMainView.Scene;
             };
         }
 

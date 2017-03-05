@@ -27,11 +27,12 @@
         <StackPanel x:Name="DPFCanvasPanel"
                     Grid.Row="0"
                     Grid.Column="0">
-            <direct3D10:DPFCanvas x:Name="Canvas" 
+            <Image Source="ImageSource"/>
+            <!--<direct3D10:DPFCanvas x:Name="Canvas" 
                                   Scene="{Binding Scene}"
                                   cal:Message.Attach=
                                   "[Event MouseMove] = [Action MouseMoved($source, $eventArgs)];
-                                   [Event MouseWheel] = [Action OnMouseWheel($source, $eventArgs)]"/>
+                                   [Event MouseWheel] = [Action OnMouseWheel($source, $eventArgs)]"/>-->
         </StackPanel>
         <Grid Grid.Column="1"
               Grid.Row="0"

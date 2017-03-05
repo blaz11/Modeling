@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace Modeling.Screens
 {
@@ -46,23 +47,25 @@ namespace Modeling.Screens
 
         public Camera Camera { get; set; }
 
-        private IScene _scene;
-        public IScene Scene
-        {
-            get
-            {
-                return _scene;
-            }
-            set
-            {
-                if (Equals(value, _scene))
-                {
-                    return;
-                }
-                _scene = value;
-                OnPropertyChanged();
-            }
-        }
+        public WriteableBitmap ImageSource { get; set; }
+
+        //private IScene _scene;
+        //public IScene Scene
+        //{
+        //    get
+        //    {
+        //        return _scene;
+        //    }
+        //    set
+        //    {
+        //        if (Equals(value, _scene))
+        //        {
+        //            return;
+        //        }
+        //        _scene = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public ModelingMainViewModel()
         {
@@ -72,9 +75,9 @@ namespace Modeling.Screens
         public void PutItem()
         {
             UpdateSceneWithCamera();
-            var torus = new Torus("test torus");
-            Scene.AddModel(torus);
-            Models.Add(torus);
+            //var torus = new Torus("test torus");
+            //Scene.AddModel(torus);
+            //Models.Add(torus);
             //var grid = new SimpleGrid("test grid");
             //Scene.AddModel(grid);
             //Models.Add(grid);
@@ -105,7 +108,7 @@ namespace Modeling.Screens
 
         private void UpdateSceneWithCamera()
         {
-            _scene.SetupViewMatrix(Camera.EyePosition, Camera.TargetPosition, Camera.Up);
+            //_scene.SetupViewMatrix(Camera.EyePosition, Camera.TargetPosition, Camera.Up);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
